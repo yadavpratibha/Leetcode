@@ -1,1 +1,30 @@
+class Solution {
+    public int findLHS(int[] nums) {
+        HashMap<Integer,Integer> freq = new HashMap<>();
+
+        // 1️⃣ Count the frequency of each number
+        for (int n : nums) {
+            freq.put(n, freq.getOrDefault(n, 0) + 1);
+        }
+
+        int ans = 0;
+
+        // 2️⃣ For each number, check if (number + 1) exists
+        for (int n : nums) {
+            int minNum = n;
+            int maxNum = n + 1;
+
+            if (freq.containsKey(maxNum)) {
+                // 3️⃣ If exists, sum their counts → possible length
+                int len = freq.get(minNum) + freq.get(maxNum);
+
+                // 4️⃣ Keep maximum length found so far
+                ans = Math.max(ans, len);
+            }
+        }
+
+        // 5️⃣ Return the maximum length found
+        return ans;
+    }
+}
 
