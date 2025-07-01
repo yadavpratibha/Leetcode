@@ -1,0 +1,18 @@
+//https://leetcode.com/problems/find-the-original-typed-string-i/description/
+
+class Solution {
+    public int possibleStringCount(String word) {
+        int ans = 1; // At least one character
+        char prev = '!'; // Dummy value different from any lowercase letter
+
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) == prev) {
+                ans++; // Count duplicate blocks
+            } else {
+                prev = word.charAt(i); // Update previous character
+            }
+        }
+
+        return ans;
+    }
+}
