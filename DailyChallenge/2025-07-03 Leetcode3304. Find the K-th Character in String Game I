@@ -10,5 +10,6 @@ class Solution {
             sb.append(newsb);
         }
         return sb.charAt(k-1);
+
     }
 }
