@@ -1,0 +1,25 @@
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        int coNums=s.length;
+        if(coNums==0){
+            return 0;
+        }
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        int maxNum=0;
+        int coIdx=coNums-1;
+        int childIdx=g.length-1;
+        while(coIdx>=0 && childIdx>=0){
+           if(s[coIdx]>=g[childIdx]){
+                maxNum++;
+                coIdx--;
+                childIdx--;
+            }
+            else{
+                childIdx--;
+            }
+        }
+        return maxNum;
+    }
+}
