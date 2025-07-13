@@ -19,3 +19,16 @@ class Solution {
         return ans;
     }
 }
+
+/**
+Why do we divide n by 5?
+Trailing zeroes in a factorial come from pairs of 2 × 5.
+In the factorial n!, there are always plenty of 2s, so the number of trailing zeroes depends on how many times 5 is a factor.
+For example, every multiple of 5 contributes at least one 5: 5, 10, 15, 20, 25, ...
+
+But Numbers like 25 contribute two 5s (because 25 = 5 × 5).
+Numbers like 125 contribute three 5s (125 = 5 × 5 × 5).
+
+What does n /= 5 do?
+It moves us to the next power of 5
+**/
