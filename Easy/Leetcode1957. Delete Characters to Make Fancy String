@@ -1,0 +1,25 @@
+/**
+ * Problem: 1957. Delete Characters to Make Fancy String
+ * Source: https://leetcode.com/problems/delete-characters-to-make-fancy-string/
+ */
+
+class Solution {
+    public String makeFancyString(String s) {
+        StringBuilder sb=new StringBuilder("");
+        char prev='#'; //To keep track of previous character
+        int count=0; //Number of Consecutive character
+        for(char ch:s.toCharArray()){
+            if(prev==ch){  
+                count++;
+            }else{
+                count=1;
+            }
+            //if consecutive characters are less than 2 add to sb else skip it
+            if(count<=2){
+                sb.append(ch);
+            }
+            prev=ch;
+        }
+        return sb.toString();
+    }
+}
