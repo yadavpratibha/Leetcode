@@ -1,0 +1,17 @@
+/**
+ * Problem: 2351. First Letter to Appear Twice
+ * Source: https://leetcode.com/problems/first-letter-to-appear-twice/description/
+ */
+
+class Solution {
+    public char repeatedCharacter(String s) {
+        HashSet<Character> set = new HashSet<>();
+        for (char ch : s.toCharArray()) {
+            if (set.contains(ch)){
+              return ch;  //Return the first character that already exists in the set. 
+            }
+            set.add(ch);  //Traverse the string while storing seen characters in a `HashSet`.  
+        }
+        return '\0'; // fallback i.e. return null, though problem guarantees a repeated character
+    }
+}
