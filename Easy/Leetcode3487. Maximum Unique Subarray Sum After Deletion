@@ -1,0 +1,22 @@
+/**
+ * Problem: 3487. Maximum Unique Subarray Sum After Deletion
+ * Source: https://leetcode.com/problems/maximum-unique-subarray-sum-after-deletion/description/
+ */
+
+class Solution {
+    public int maxSum(int[] nums) {
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int n : nums) {
+            max = Math.max(max, n);
+            if (!set.contains(n) && n >= 0) {
+                sum += n;
+                set.add(n);  //Traverse the array and add non-negative, unique values to a `HashSet`
+            }
+        }
+
+        return max < 0 ? max : sum;  //If all values are negative, return the maximum (least negative) value.
+    }
+}
