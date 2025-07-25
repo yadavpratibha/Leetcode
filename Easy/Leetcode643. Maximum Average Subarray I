@@ -1,0 +1,23 @@
+/**
+ * Problem: 643. Maximum Average Subarray I
+ * Source: https://leetcode.com/problems/maximum-average-subarray-i/
+ */
+
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0;
+        for (int i = 0; i < k; i++) {  //Use a fixed-size sliding window of length `k` to track the current sum.
+            sum += nums[i];
+        }
+
+        //If all numbers in nums are negative, initializing ans = 0 would be incorrect.
+        int ans = sum;
+        for (int i = k; i < nums.length; i++) {
+            sum += nums[i] - nums[i - k];  //Slide the window by subtracting the first element and adding the next.
+            ans = Math.max(ans, sum);  //Keep track of the maximum sum
+        }
+
+        return ((double) ans) / k;
+    }
+}
+
