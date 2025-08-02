@@ -1,0 +1,23 @@
+/**
+ * Problem: 3627. Maximum Median Sum of Subsequences of Size 3
+ * Source: https://leetcode.com/problems/maximum-median-sum-of-subsequences-of-size-3/description/
+ */
+
+class Solution {
+    public long maximumMedianSum(int[] nums) {
+        Arrays.sort(nums);  // Step 1: Sort the array
+
+        int si = 0;
+        int ei = nums.length - 2;  // Start from second-last element
+        long ans = 0;
+
+        // Step 2: Pick median (middle of each triplet from the end)
+        while (si <= ei) {
+            ans += nums[ei];  // Add the median
+            si++;
+            ei -= 2;  // Skip two elements (simulate picking 3 per group)
+        }
+
+        return ans;
+    }
+}
