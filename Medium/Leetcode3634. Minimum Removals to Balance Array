@@ -1,0 +1,22 @@
+/**
+ * Problem: 3634. Minimum Removals to Balance Array
+ * Source: https://leetcode.com/problems/minimum-removals-to-balance-array/description/
+ */
+
+class Solution {
+    public int minRemoval(int[] nums, int k) {
+        Arrays.sort(nums);
+
+        int left = 0, maxLen = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            // if window is not balanced, move left pointer
+            while ((long) nums[right] > (long) nums[left] * k) {
+                left++;
+            }
+            maxLen = Math.max(maxLen, right - left + 1);
+        }
+
+        return nums.length - maxLen;
+    }
+}
