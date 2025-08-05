@@ -1,0 +1,44 @@
+/**
+ * Problem: 3507. Minimum Pair Removal to Sort Array I
+ * Source: https://leetcode.com/problems/minimum-pair-removal-to-sort-array-i/description/
+ */
+
+
+class Solution {
+    public int minimumPairRemoval(int[] nums) {
+        int ops = 0;
+        int length = nums.length - 1; //Keep track of the array length and repeatedly find the **leftmost minimum-sum adjacent pair**.
+
+        while (length > 0) {
+            boolean increase = true;
+            int minSum = Integer.MAX_VALUE;
+            int minIdx = -1;
+
+            // Find leftmost pair with minimum sum and check if array is sorted
+            for (int i = 0; i < length; i++) {
+                if (nums[i] > nums[i + 1]) {
+                    increase = false;
+                }
+                if (nums[i] + nums[i + 1] < minSum) {
+                    minSum = nums[i] + nums[i + 1];  //Replace that pair with its sum and shift the array elements left.
+                    minIdx = i;
+                }
+            }
+
+            // If already sorted, stop
+            if (increase) break;  //Stop when the array becomes non-decreasing.
+
+            // Merge the selected pair
+            nums[minIdx] = minSum;
+
+            // Shift elements left
+            for (int i = minIdx + 1; i < length; i++) {
+                nums[i] = nums[i + 1];
+            }
+
+            length--;
+            ops++;  //Count the number of merge operations.
+        }
+        return ops;
+    }
+}
