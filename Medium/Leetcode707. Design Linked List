@@ -54,14 +54,13 @@ class MyLinkedList {
     }
 
     public void addAtIndex(int index, int val) {
-        if (index < 0 || index > size)
+        if (index < 0 || index > size){
             return;
-
+        }
         if (index == 0) {
             addAtHead(val);
             return;
         }
-
         if (index == size) {
             addAtTail(val);
             return;
