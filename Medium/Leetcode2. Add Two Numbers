@@ -1,0 +1,55 @@
+/**
+ * Problem: 2. Add Two Numbers
+ * Source: https://leetcode.com/problems/add-two-numbers/description/
+ */
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        return add_Two_Numbers(l1,l2);
+    }
+
+    public ListNode add_Two_Numbers(ListNode l1, ListNode l2) {
+	    ListNode l3=new ListNode();
+	    ListNode ans=l3;
+        int carryover=0;
+
+	    while(l1!=null || l2!=null || carryover!=0) {
+			int digit1=0;
+    		int digit2=0;
+			if(l1!=null){
+				digit1=l1.val;
+			}
+			if(l2!=null){
+				digit2=l2.val;
+			}
+	        int sum=digit1+digit2+carryover;
+	    	int digit=sum%10;
+	    	carryover=sum/10;
+
+			ListNode newnode=new ListNode();
+			newnode.val=digit;
+			l3.next=newnode;
+
+			if(l1!=null){
+				l1=l1.next;
+			}
+			if(l2!=null){
+				l2=l2.next;
+			}
+	    	l3=l3.next;
+	        	
+	        }        
+	        
+	        return ans.next;
+	    }
+}
