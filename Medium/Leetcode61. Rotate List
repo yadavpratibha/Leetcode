@@ -18,35 +18,29 @@ class Solution {
         if(head==null || head.next==null || k==0){
             return head;
         }
-        int s=size(head);
-        k=k%s;
-        if(k==0){
-            return head;
-        }
-        ListNode prevhead=head;
+
         ListNode temp=head;
-        for(int i=1;i<s-k;i++){
-            temp=temp.next;
-        }
-        ListNode newhead=temp.next;
-        temp.next=null;
-
-        ListNode nn=newhead;
-        while(nn.next!=null){
-            nn=nn.next;
-        }
-        nn.next=prevhead;
-        return newhead;
-
-    }
-
-    public int size(ListNode head){
-        ListNode temp=head;
-        int size=0;
-        while(temp!=null){
+        int size=1;
+        while(temp.next!=null){
             size++;
             temp=temp.next;
         }
-        return size;
+        k=k%size;
+        if(k==0){
+            return head;
+        }
+
+        temp.next=head;
+
+        temp=head;
+        for(int i=1;i<size-k;i++){
+            temp=temp.next;
+        }
+        head=temp.next;
+        temp.next=null;
+
+        return head;
+
     }
+
 }
