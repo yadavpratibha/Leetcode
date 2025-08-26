@@ -1,0 +1,22 @@
+/**
+ * Problem: 3000. Maximum Area of Longest Diagonal Rectangle
+ * Source: https://leetcode.com/problems/maximum-area-of-longest-diagonal-rectangle/description/
+ */
+
+class Solution {
+    public int areaOfMaxDiagonal(int[][] dimensions) {
+        double diagonal=0;
+        int area=0;
+
+        for(int[] arr:dimensions){
+            double arrdiagonal=Math.sqrt((arr[0]*arr[0])+(arr[1]*arr[1]));
+            if(arrdiagonal>diagonal){
+                area=arr[0]*arr[1];
+                diagonal=arrdiagonal;
+            }else if(arrdiagonal==diagonal){
+                area=Math.max(area,arr[0]*arr[1]);
+            }
+        }
+        return area;
+    }
+}
