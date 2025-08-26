@@ -1,0 +1,73 @@
+/**
+ * Problem: 25. Reverse Nodes in k-Group
+ * Source: https://leetcode.com/problems/reverse-nodes-in-k-group/description/
+ */
+
+//APPROACH
+        // 🔹 Step 1: Use a Dummy Node
+        // Create a dummy node before the head to simplify edge cases.
+        // prevLast will always point to the last node of the already processed (reversed) part.
+
+        // Process list in groups of k
+        // 🔹 Step 2: Process the List in Groups of k
+        // Find the kth node from current position.
+        // If Not enough nodes left → connect remaining part and break
+        // 🔹 Step 3: Reverse the k Nodes // temp becomes tail after reversal // move to next group
+
+
+        // 🔹 Step 5: Return the Result
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode ans = new ListNode(0);               //To save head of answer LinkedList
+        ListNode prevLast = ans;                      //To preserve tail of last k group
+        ListNode temp = head;                         //Beginning point of reverse k group
+        ListNode nextNode = null;                     //Head of next kth group
+        while (temp != null) {
+            ListNode kthNode = findkthNode(temp, k);  //Find end point of reverse k group and seperate
+            if (kthNode == null) {                    //If remaining LinkedList is less than k, attach as it is
+                prevLast.next = temp;
+                break;
+            }
+            nextNode = kthNode.next;                  //preserve head of next kth group
+            kthNode.next = null;                      //Seperate LinkedList to perform raverse
+            prevLast.next = reverse(temp);            //Reverse and return head
+            prevLast = temp;                          //Attach head of reversed list with tail of previous list
+            temp = nextNode;                          //Move to next kth group
+        }
+        return ans.next;
+    }
+
+    public ListNode findkthNode(ListNode head, int k) {
+        ListNode temp = head;
+        for (int i = 1; i < k; i++) {
+            if (temp == null) {
+                return null;
+            }
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    public ListNode reverse(ListNode head) {
+        ListNode curr = head;
+        ListNode prev = null;
+        while (curr != null) {
+            ListNode ahead = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = ahead;
+        }
+        return prev;
+    }
+}
