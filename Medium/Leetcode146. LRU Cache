@@ -3,7 +3,85 @@
  * Source: https://leetcode.com/problems/lru-cache/description/
  */
 
+class LRUCache {
 
+    class Node{
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        Node(int key,int value){
+            this.key=key;
+            this.value=value;
+        }
+    }
+
+    private final int capacity;
+    private final HashMap<Integer,Node>map;
+    private final Node head;
+    private final Node tail;
+
+    public LRUCache(int capacity) {
+        this.capacity=capacity;
+        map=new HashMap<>();
+
+        head=new Node(0,0);
+        tail=new Node(0,0);
+        head.next=tail;
+        tail.prev=head;        
+    }
+    
+    public int get(int key) {
+        if(!map.containsKey(key)){
+            return -1;
+        }
+        Node nn=map.get(key);
+        remove(nn);
+        insertEnd(nn);
+        return nn.value;
+    }
+    
+    public void put(int key, int value) {
+        if(map.containsKey(key)){
+            Node nn=map.get(key);
+            nn.value=value;
+
+            remove(nn);
+            insertEnd(nn);
+        }else{
+            if(map.size()==capacity){
+                Node lru=head.next;
+                remove(lru);
+                map.remove(lru.key);
+            }
+            Node nn=new Node(key,value);
+            insertEnd(nn);
+            map.put(key,nn);
+        }
+    }
+
+    public void remove(Node nn){
+        nn.prev.next=nn.next;
+        nn.next.prev=nn.prev;
+    }
+
+    public void insertEnd(Node nn){
+        Node prev=tail.prev;
+        prev.next=nn;
+        nn.prev=prev;
+
+        nn.next=tail;
+        tail.prev=nn;
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
 
 -----------------------------OR--------------------------------
 
