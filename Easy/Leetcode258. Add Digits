@@ -3,6 +3,16 @@
  * Source: https://leetcode.com/problems/add-digits/description/
  */
 
+//DIGITAL ROOT
+
+class Solution {
+    public int addDigits(int num) {
+        return 1+((num-1)%9);
+    }
+}
+
+//---------------------OR-----------------------------
+
 class Solution {
     public int addDigits(int num) {
         if(num<10) return num;
