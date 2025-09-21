@@ -1,0 +1,27 @@
+/**
+ * Problem: 1614. Maximum Nesting Depth of the Parentheses
+ * Source: https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/description/
+ */
+
+class Solution {
+    public int maxDepth(String s) {
+        int ans = 0;    // stores maximum depth found so far
+        int depth = 0;  // current depth while traversing string
+
+        // iterate character by character
+        for(char ch : s.toCharArray()) {
+            if (ch == '(') {
+                depth++;                     // going one level deeper
+                ans = Math.max(ans, depth);  // update max depth if needed
+            } 
+            else if (ch == ')') {
+                depth--;  // closing bracket reduces nesting level
+            }
+        }
+        return ans;
+    }
+}
+
+/**
+  Time Complexity: O(n) - 1 pass
+  Space Complexity: O(1) - two variables used
