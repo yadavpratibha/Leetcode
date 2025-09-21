@@ -1,0 +1,43 @@
+/**
+ * Problem: Leetcode13. Roman to Integer
+ * Source: https://leetcode.com/problems/roman-to-integer/
+ */
+
+class Solution {
+    public int romanToInt(String s) {
+        // Step 1: Create a map of Roman numerals to their integer values
+        HashMap<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+
+        // Step 2: Variable to store the final result
+        int ans = 0;
+
+        // Step 3: Traverse each character in the Roman numeral string
+        for (int i = 0; i < s.length(); i++) {
+
+            // Check if the current numeral is smaller than the next numeral
+            // Example: IV → here I (1) is smaller than V (5), so subtract I
+            if (i < s.length() - 1 && map.get(s.charAt(i)) < map.get(s.charAt(i + 1))) {
+                ans -= map.get(s.charAt(i));  // Subtract the smaller value
+            } 
+            else {
+                // Otherwise, just add the value of the current numeral
+                ans += map.get(s.charAt(i));
+            }
+        }
+
+        // Step 4: Return the final converted integer value
+        return ans;
+    }
+}
+
+/**
+  Time Complexity: O(n)
+  Space Complexity: O(1)
+*/
