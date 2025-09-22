@@ -1,0 +1,46 @@
+/**
+ * Problem: 242. Valid Anagram
+ * Source: https://leetcode.com/problems/valid-anagram/description/
+ */
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        // If lengths differ, they can never be anagrams
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        // Map to store character frequencies from string s
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        // Count how many times each character appears in s
+        for (char ch : s.toCharArray()) {
+            // If 'ch' exists, increment count, otherwise start with 1
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        // Traverse string t and try to "balance" the frequencies
+        for (char ch : t.toCharArray()) {
+            // If a character in t doesn't exist in map, not an anagram
+            if (!map.containsKey(ch)) {
+                return false;
+            } else {
+                // If count > 1, just decrease by 1
+                if (map.get(ch) > 1) {
+                    map.put(ch, map.get(ch) - 1);
+                } else {
+                    // If count == 1, remove entry from map (count becomes 0)
+                    map.remove(ch);
+                }
+            }
+        }
+
+        // If the map is empty, all characters balanced perfectly
+        return map.isEmpty();
+    }
+}
+
+
+/**
+  Time Complexity: O(n) - 2 seperate pass
+  Space Complexity: O(1)
