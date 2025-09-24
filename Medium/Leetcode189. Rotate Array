@@ -1,0 +1,39 @@
+/**
+ * Problem: 189. Rotate Array
+ * Source: https://leetcode.com/problems/rotate-array/description/
+ */
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        k=k%nums.length;
+        while(k-->0){
+            int last=nums[nums.length-1];
+            for(int i=nums.length-2;i>=0;i--){
+                nums[i+1]=nums[i];
+            }
+            nums[0]=last;
+        }
+        
+    }
+}
+
+------------------------------OPTIMAL SOLUTION-------------------------------------------
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int n=nums.length;
+        k=k%nums.length;
+        reverseRange(nums,0,n-k-1);
+        reverseRange(nums,n-k,n-1);
+        reverseRange(nums,0,n-1);
+        
+    }
+
+    public void reverseRange(int[] arr,int si,int ei){
+        for(;si<ei;si++,ei--){
+            int temp=arr[si];
+            arr[si]=arr[ei];
+            arr[ei]=temp;
+        }
+    }
+}
