@@ -1,0 +1,37 @@
+/**
+ * Problem: 205. Isomorphic Strings
+ * Source: https://leetcode.com/problems/isomorphic-strings/description/
+ */
+
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if(s.length()!=t.length()){
+            return false;
+        }
+
+        Map<Character,Character>s2t=new HashMap<>();
+        Map<Character,Character>t2s=new HashMap<>();
+
+        for(int i=0;i<s.length();i++){
+            char sch=s.charAt(i);
+            char tch=t.charAt(i);
+
+            if(s2t.containsKey(sch)){
+                if(s2t.get(sch)!=tch){
+                    return false;
+                }
+            }else{
+                s2t.put(sch,tch);
+            }
+
+            if(t2s.containsKey(tch)){
+                if(t2s.get(tch)!=sch){
+                    return false;
+                }
+            }else{
+                t2s.put(tch,sch);
+            }
+        }
+        return true;
+    }
+}
