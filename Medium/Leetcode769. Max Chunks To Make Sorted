@@ -1,0 +1,27 @@
+/**
+ * Problem: 769. Max Chunks To Make Sorted
+ * Source: https://leetcode.com/problems/max-chunks-to-make-sorted/description/
+ */
+
+class Solution {
+    public int maxChunksToSorted(int[] arr) {
+        int prefixsum = 0;  // running sum of array elements seen so far
+        int currsum = 0;    // expected sum of indices (0 + 1 + ... + i)
+        int partition = 0;  // number of valid chunks
+
+        // Traverse the array
+        for (int i = 0; i < arr.length; i++) {
+            prefixsum += arr[i];       // add current element to running sum
+            currsum = (i * (i + 1)) / 2; // sum of first i natural numbers
+
+            // If the actual sum so far == expected sum of indices
+            // It means all elements from 0..i are present in this segment
+            // => we can safely make a partition here
+            if (prefixsum == currsum) {
+                partition++;
+            }
+        }
+
+        return partition; // total number of chunks
+    }
+}
