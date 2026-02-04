@@ -1,0 +1,48 @@
+/**
+ * Problem: 54. Spiral Matrix
+ * Source: https://leetcode.com/problems/spiral-matrix/
+ */
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer>list=new ArrayList<>();
+        int l=matrix.length*matrix[0].length;
+        int count=0; //no. of elements added in ans
+        int minrow=0;
+        int maxrow=matrix.length-1;
+        int mincol=0;
+        int maxcol=matrix[0].length-1;
+
+        int i=0,j=0;
+        while(minrow<=maxrow && mincol<=maxcol){
+            i=minrow;
+            for(j=mincol;j<=maxcol;j++){
+                list.add(matrix[i][j]);
+            }
+            minrow++;
+
+            j=maxcol;
+            for(i=minrow;i<=maxrow;i++){
+                list.add(matrix[i][j]);
+            }
+            maxcol--;
+            
+            if(minrow<=maxrow){
+                i=maxrow;
+                for(j=maxcol;j>=mincol;j--){
+                    list.add(matrix[i][j]);
+            }
+            maxrow--;
+            }
+
+            if(mincol<=maxcol){
+                j=mincol;
+                for(i=maxrow;i>=minrow;i--){
+                    list.add(matrix[i][j]);
+                }
+            mincol++;
+            }
+        }
+        return list;
+    }
+}
