@@ -1,0 +1,55 @@
+/**
+ * Problem: 918. Maximum Sum Circular Subarray
+ * Source: https://leetcode.com/problems/maximum-sum-circular-subarray/description/
+ */
+
+//APPROACH
+//In a circular array, the maximum subarray can exist in two possible ways:
+//Case 1: Normal Linear Subarray. Apply Kadane’s Algorithm to find the maximum subarray sum.
+//Case 2: Circular Subarray (Wrapping Around). 
+//Compute totalSum of the array, minSum using Kadane’s Algorithm
+//Circular sum = totalSum − minSum
+//If all elements are negative: Circular sum becomes invalid. In this case, return LinearSum directly.
+
+class Solution {
+    public int maxSubarraySumCircular(int[] arr) {
+        int circularSum = maxCircularSubarraySum(arr);
+        int linearSum = maxSubarraySum(arr);
+        if (linearSum < 0) {
+            return linearSum;
+        }
+        return Math.max(linearSum, circularSum);
+    }
+
+    public int maxSubarraySum(int[] arr) {
+        int ans = Integer.MIN_VALUE;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            ans = Math.max(ans, sum);
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+        return ans;
+    }
+
+    public int maxCircularSubarraySum(int[] arr) {
+        int total = 0;
+        for (int i = 0; i < arr.length; i++) {
+            total += arr[i];
+        }
+
+        int minSum = Integer.MAX_VALUE;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum = Math.min(arr[i], sum + arr[i]);
+            minSum = Math.min(minSum, sum);
+        }
+        return total - minSum;
+    }
+
+}
+
+//Time Complexity: O(n)
+//Space Complexity: O(1)
