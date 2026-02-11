@@ -1,0 +1,58 @@
+/**
+ * Problem: 15. 3Sum
+ * Source: https://leetcode.com/problems/3sum/description/
+ */
+
+/**
+ * APPROACH
+ * First, sort the array to simplify duplicate handling and enable two-pointer traversal.
+ * Fix one element and reduce the problem to a 2Sum search on the remaining array.
+ * Use two pointers (left & right) to find pairs whose sum equals the negative of the fixed element.
+ * Carefully skip duplicates to ensure only unique triplets are added.
+ */
+
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 2; i++) {
+
+            int first = nums[i];
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            int si = i + 1;
+            int ei = nums.length - 1;
+            while (si < ei) {
+                if (nums[si] + nums[ei] == -nums[i]) {
+                    List<Integer> ll = new ArrayList<>();
+                    ll.add(nums[i]);
+                    ll.add(nums[si]);
+                    ll.add(nums[ei]);
+                    ans.add(ll);
+                    int second = nums[si];
+                    int third = nums[ei];
+                    while (si < ei && nums[si] == second) {
+                        si++;
+                    }
+                    while (si < ei && nums[ei] == third) {
+                        ei--;
+                    }
+                } else if (nums[si] + nums[ei] > -nums[i]) {
+                    ei--;
+                } else if (nums[si] + nums[ei] < -nums[i]) {
+                    si++;
+                }
+
+            }
+
+        }
+        return ans;
+    }
+}
+
+//Time Complexity: O(n²)
+//Space Complexity: O(1)
